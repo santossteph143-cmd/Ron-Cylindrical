@@ -1,0 +1,141 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Cylindrical Wedge Volume Calculator";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cylindrical Wedge Volume Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f4f6f8;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            font-weight: bold;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .unit {
+            margin-left: 8px;
+            margin-top: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #005ea2;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 12px;
+            background: #e8f4ea;
+            border: 1px solid #b7dfba;
+            border-radius: 8px;
+            color: #1f5d28;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .validation {
+            color: #b00020;
+            margin-top: 10px;
+        }
+
+        .formula {
+            margin-top: 10px;
+            text-align: center;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Cylindrical Wedge Volume</h1>
+
+        <div class="formula">
+            V = (2 / 3) × r² × h
+        </div>
+
+        <form method="post">
+
+            <label asp-for="Radius"></label>
+            <div class="input-group">
+                <input asp-for="Radius" type="number" step="any" />
+                <span class="unit">cm</span>
+            </div>
+            <span asp-validation-for="Radius" class="validation"></span>
+
+            <label asp-for="Height"></label>
+            <div class="input-group">
+                <input asp-for="Height" type="number" step="any" />
+                <span class="unit">cm</span>
+            </div>
+            <span asp-validation-for="Height" class="validation"></span>
+
+            <button type="submit">Calculate Volume</button>
+        </form>
+
+        @if (Model.Volume.HasValue)
+        {
+            <div class="result">
+                Volume = @Model.Volume.Value.ToString("0.####") cm³
+            </div>
+        }
+
+        <div asp-validation-summary="ModelOnly" class="validation"></div>
+    </div>
+
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>
